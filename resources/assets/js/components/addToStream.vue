@@ -5,11 +5,21 @@
       Push to the Stream...
     </div>
     <div class="message-body">
-      <form @submit.prevent="onSubmit">
-        <textarea class="textarea" placeholder="I have something to say..." v-model="form.body"></textarea>
+      <form @submit.prevent="onSubmit" @keydown="form.errors.clear()">
+        
+        <div class="field">
+          <p class="control">
+            <textarea class="textarea" placeholder="I have something to say..." v-model="form.body"></textarea>
+          </p>
+        </div>
 
-        <div class="control">
-          <button class="button is-primary">Submit</button>
+        <span class="field help is-danger"
+          v-if="form.errors.has('body')" v-text="form.errors.get('body')"></span>
+
+        <div class="field">
+          <p class="control">
+            <button class="button is-primary" :disabled="form.errors.any()">Submit</button>
+          </p>
         </div>
       </form>
     </div>
